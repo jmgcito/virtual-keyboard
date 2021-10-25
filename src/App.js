@@ -1,25 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import "./Piano.css";
+import React from "react";
+import { render } from "@testing-library/react";
 
-function App() {
+function Piano() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div class="piano">
+      <div class="piano-board">
+        <div class="piano-top"></div>
+
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+        <button class="black-key"></button>
+        <button class="piano-key"></button>
+        <button class="piano-key"></button>
+      </div>
     </div>
   );
+}
+
+class App extends React.Component {
+  render() {
+    return <Piano />;
+  }
 }
 
 export default App;

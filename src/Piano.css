@@ -1,0 +1,76 @@
+button {
+  border: none;
+}
+.piano {
+  position: absolute;
+  top: 40%;
+  left: 38%;
+  transform: scale(200%);
+}
+
+.piano-board {
+  width: 650px;
+  height: 105px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: rgb(70, 1, 1);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.piano-top {
+  width: inherit;
+  height: 10px;
+  position: absolute;
+  border-radius: 10px 10px 0 0;
+  background: rgb(70, 1, 1);
+  z-index: 2;
+}
+
+.piano-key {
+  width: 25px;
+  height: 100px;
+  border-radius: 0 0 5px 5px;
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  margin-left: 2px;
+}
+
+.black-key {
+  width: 15px;
+  height: 70px;
+  border-radius: 0 0 5px 5px;
+  background: black;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  margin-left: -7px;
+  margin-right: -8px;
+  z-index: 1;
+}
+
+@media (max-width: 1500px) {
+  .piano {
+    transform: scale(150%);
+    top: 40%;
+    left: 25%;
+  }
+  .piano-key {
+    margin-left: 4px;
+  }
+
+  .black-key {
+    margin-left: -7px;
+    margin-right: -8px;
+  }
+}
+
+@media (max-width: 800px) {
+  .piano {
+    transform: scale(125%);
+    top: 40%;
+    left: 11%;
+  }
+}
