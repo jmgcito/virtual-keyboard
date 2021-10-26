@@ -9,8 +9,8 @@ button {
 }
 
 .piano-board {
-  width: 650px;
-  height: 105px;
+  /* width: 650px;
+  height: 105px; */
   border-radius: 10px;
   display: flex;
   flex-direction: row;
