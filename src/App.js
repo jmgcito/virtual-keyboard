@@ -1,6 +1,5 @@
 import "./Piano.css";
 import React, { useState, useEffect } from "react";
-import { render } from "@testing-library/react";
 import * as Tone from "tone";
 
 // incrementChar("C") -> "D"
@@ -41,9 +40,11 @@ function nextNote(note) {
 function noteRange(start, end) {
   let notes = [];
   let note = start;
+
+  notes.push(start);
   while (note !== end) {
-    notes.push(note);
     note = nextNote(note);
+    notes.push(note);
   }
   return notes;
 }
@@ -51,22 +52,24 @@ function noteRange(start, end) {
 function Key(props) {
   return (
     <button
-      class={props.note.includes("#") ? "black-key" : "piano-key"}
+      class={
+        (props.note.length === 2 // determines note class 'C', 'C#' aka 'Cs', 'D'..etc
+          ? props.note.charAt(0)
+          : props.note.slice(0, 1) + "s") +
+        " " +
+        (props.note.includes("#") ? "black-key" : "white-key") // determines key class
+      }
       onMouseDown={() => props.synth.triggerAttack(props.note)}
       onMouseUp={() => props.synth.triggerRelease("+0.2")}
-      id={
-        props.note.length === 2
-          ? props.note.charAt(0)
-          : props.note.slice(0, 1) + "s"
-      }
+      onKeyPress={() => props.synth.triggerAttack(props.note)}
     />
   );
 }
 
 function Piano() {
   const [synth, setSynth] = useState(() => new Tone.Synth());
-  const start = "C3";
-  const end = "C6";
+  const start = "F4";
+  const end = "C7";
   const notes = noteRange(start, end);
 
   useEffect(() => {
