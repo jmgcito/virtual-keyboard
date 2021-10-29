@@ -35,6 +35,10 @@ const keyboardKeys = [
   "j",
   "m",
   ",",
+  "l",
+  ".",
+  ";",
+  "/",
 ];
 
 // incrementChar("C") -> "D"
@@ -106,7 +110,7 @@ function Key(props) {
 // basically the idea is to get all the keyboard keys into the each note string, so it can
 // be mapped into the key components
 const start = "F4";
-const end = "C7";
+const end = "E7";
 const notes = noteRange(start, end);
 
 function strArrToStrArr(strs1, strs2) {
@@ -143,6 +147,7 @@ function Piano(props) {
   );
 }
 
+//creates a js obj using first array as keys and second array as values
 function arrArrToKeyValue(arr1, arr2) {
   let obj = new Object();
   let i = 0;
@@ -162,6 +167,12 @@ document.addEventListener(
   (event) => {
     var key = event.key;
     var button = document.getElementById(key);
+    event.preventDefault();
+    //disables key repeat allowing for long presses
+    if (event.repeat) {
+      return;
+    }
+
     if (button) {
       button.focus();
       outSynth.triggerAttack(notesOfKeys[key]);
@@ -173,6 +184,7 @@ document.addEventListener(
 document.addEventListener(
   "keyup",
   (event) => {
+    //lastKeyPressed = 0;
     var key = event.key;
     var button = document.getElementById(key);
     if (button) {
