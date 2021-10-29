@@ -4,6 +4,11 @@ body {
 
 button {
   border: none;
+  outline: none;
+  caret-color: transparent;
+}
+.jsOnly {
+  display: none;
 }
 
 .piano {
@@ -29,7 +34,7 @@ button {
   width: 25px;
   height: 100px;
   border-radius: 0 0 5px 5px;
-  background: white;
+  background: rgb(232, 212, 196);
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   margin-left: 2px;
@@ -49,40 +54,40 @@ button {
   z-index: 1;
 }
 
-.C:active {
+.C:focus {
   background: rgb(255, 124, 124);
 }
-.Cs:active {
+.Cs:focus {
   background: rgb(255, 159, 124);
 }
-.D:active {
+.D:focus {
   background: rgb(245, 252, 108);
 }
-.Ds:active {
+.Ds:focus {
   background: rgb(248, 255, 124);
 }
-.E:active {
+.E:focus {
   background: rgb(205, 255, 124);
 }
-.F:active {
+.F:focus {
   background: rgb(124, 255, 176);
 }
-.Fs:active {
+.Fs:focus {
   background: rgb(124, 255, 235);
 }
-.G:active {
+.G:focus {
   background: rgb(124, 205, 255);
 }
-.Gs:active {
+.Gs:focus {
   background: rgb(124, 155, 255);
 }
-.A:active {
+.A:focus {
   background: rgb(152, 124, 255);
 }
-.As:active {
+.As:focus {
   background: rgb(211, 124, 255);
 }
-.B:active {
+.B:focus {
   background: rgb(255, 124, 224);
 }
 

@@ -2,6 +2,41 @@ import "./Piano.css";
 import React, { useState, useEffect } from "react";
 import * as Tone from "tone";
 
+const keyboardKeys = [
+  "q",
+  "2",
+  "w",
+  "3",
+  "e",
+  "4",
+  "r",
+  "t",
+  "6",
+  "y",
+  "7",
+  "u",
+  "i",
+  "9",
+  "o",
+  "0",
+  "p",
+  "-",
+  "[",
+  "z",
+  "s",
+  "x",
+  "d",
+  "c",
+  "v",
+  "g",
+  "b",
+  "h",
+  "n",
+  "j",
+  "m",
+  ",",
+];
+
 // incrementChar("C") -> "D"
 // incrementChar("E") -> "F"
 function incrementChar(char) {
@@ -12,7 +47,7 @@ function incrementChar(char) {
 // nextNote("E2") -> "F2"
 function nextNote(note) {
   if (note.length === 2) {
-    // not sharp
+    // not sharpw
     if (note.includes("E") || note.includes("B")) {
       let octave = note.slice(1);
       //doesn't add sharp to E or G
@@ -53,7 +88,7 @@ function Key(props) {
   return (
     <button
       class={
-        (props.note.length === 2 // determines note class 'C', 'C#' aka 'Cs', 'D'..etc
+        (props.note.length === 4 // determines note class 'C', 'C#' aka 'Cs', 'D'..etc
           ? props.note.charAt(0)
           : props.note.slice(0, 1) + "s") +
         " " +
@@ -61,16 +96,37 @@ function Key(props) {
       }
       onMouseDown={() => props.synth.triggerAttack(props.note)}
       onMouseUp={() => props.synth.triggerRelease("+0.2")}
-      onKeyPress={() => props.synth.triggerAttack(props.note)}
+      id={props.note.slice(props.note.length - 1)}
     />
   );
 }
+//does not work, think of a better way to implement this
+// i think this can be an event handler in the App class
 
-function Piano() {
+// basically the idea is to get all the keyboard keys into the each note string, so it can
+// be mapped into the key components
+const start = "F4";
+const end = "C7";
+const notes = noteRange(start, end);
+
+function strArrToStrArr(strs1, strs2) {
+  let newStr = [];
+  let i = 0;
+  for (let strs of strs1) {
+    newStr.push(strs + " " + strs2[i]);
+    i++;
+  }
+  return newStr;
+}
+
+var notesKeys = strArrToStrArr(notes, keyboardKeys);
+console.log(notesKeys);
+
+function Piano(props) {
   const [synth, setSynth] = useState(() => new Tone.Synth());
-  const start = "F4";
-  const end = "C7";
-  const notes = noteRange(start, end);
+
+  //adding keyboardKeys to note array
+  //this will let us id every individual key for keypresses
 
   useEffect(() => {
     synth.toDestination();
@@ -79,7 +135,7 @@ function Piano() {
   return (
     <div class="piano">
       <div class="piano-board">
-        {notes.map((note) => (
+        {notesKeys.map((note) => (
           <Key note={note} synth={synth} />
         ))}
       </div>
@@ -87,6 +143,53 @@ function Piano() {
   );
 }
 
+function arrArrToKeyValue(arr1, arr2) {
+  let obj = new Object();
+  let i = 0;
+  for (let item of arr1) {
+    obj[item] = arr2[i];
+    i++;
+  }
+  return obj;
+}
+let notesOfKeys = arrArrToKeyValue(keyboardKeys, notes);
+console.log(notesOfKeys);
+
+const outSynth = new Tone.Synth().toDestination();
+//this is what makes the keyboard keys play notes
+document.addEventListener(
+  "keydown",
+  (event) => {
+    var key = event.key;
+    var button = document.getElementById(key);
+    if (button) {
+      button.focus();
+      outSynth.triggerAttack(notesOfKeys[key]);
+    }
+  },
+  false
+);
+
+document.addEventListener(
+  "keyup",
+  (event) => {
+    var key = event.key;
+    var button = document.getElementById(key);
+    if (button) {
+      button.blur();
+      outSynth.triggerRelease("+0.2");
+    }
+  },
+  false
+);
+
+document.addEventListener(
+  "mouseup",
+  () => {
+    document.activeElement.blur();
+  },
+  false
+);
 class App extends React.Component {
   render() {
     return <Piano />;
