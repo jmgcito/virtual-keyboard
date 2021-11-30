@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "automation-events": "./automation-events.js",
+    "standardized-audio-context": "./standardized-audio-context.js",
+    "tone": "./tone.js"
+  }
+}
