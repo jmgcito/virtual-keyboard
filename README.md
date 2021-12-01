@@ -3,9 +3,9 @@
 Interactive Virtual Keyboard. Design is based off of the Yamaha Pianica, 37-note Melodica.
 
 
-## How to run remotely
+## How to run
 
- Using a terminal, cd into the 'virtual-keyboard' directory. Run 'npm start'.
+ To run remotely using a terminal, cd into the 'virtual-keyboard' directory. Run 'npm start'.
 
 ** OR **
 
