@@ -7,7 +7,7 @@ Interactive Virtual Keyboard. Design is based off of the Yamaha Pianica, 37-note
 
  To run remotely using a terminal, cd into the 'virtual-keyboard' directory. Run 'npm start'.
 
-** OR **
+**OR**
 
  Click this [link](https://virtual-keyboard.onrender.com/) to run the current version.
  
