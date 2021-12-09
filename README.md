@@ -1,6 +1,6 @@
 # Virtual-Keyboard
 
-Interactive Virtual Keyboard. Design is based off of the Yamaha Pianica, 37-note Melodica.
+Interactive Virtual Keyboard. Design is based off of the Yamaha Pianica, 37-note Melodica. Check out the [Vanilla Javascript Version](https://github.com/jmgcito/virtual-keyboard-vanilla)!
 
 
 ## How to run
@@ -17,5 +17,4 @@ Interactive Virtual Keyboard. Design is based off of the Yamaha Pianica, 37-note
 
 ## Future improvements
 
-- Rewrite project to entirely exist in vanilla javascript. 
 - Change simple synth tones to melodica sound files. 
