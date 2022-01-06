@@ -13,8 +13,9 @@ Interactive Virtual Keyboard. Design is based off of the Yamaha Pianica, 37-note
  
 ## Issues / Bugs
 - CSS is broken on mobile iOS devices
-- Synth limited to one tone sounding off at a time. This causes a subsequently played note to be cut off when the previous key is unpressed.
 
 ## Future improvements
 
 - Change simple synth tones to melodica sound files. 
+- Add octave changer
+- Add sound changer
