@@ -1,6 +1,7 @@
 import "./Piano.css";
 import React, { useState, useEffect } from "react";
 import * as Tone from "tone";
+import Octave from "./Octave";
 
 const keyboardKeys = [
   "q",
@@ -91,12 +92,13 @@ function noteRange(start, end) {
 function Key(props) {
   return (
     <button
-      class={
+      className={
         (props.note.length === 4 // determines note class 'C', 'C#' aka 'Cs', 'D'..etc
           ? props.note.charAt(0)
           : props.note.slice(0, 1) + "s") +
         " " +
-        (props.note.includes("#") ? "black-key" : "white-key") // determines key class
+        (props.note.includes("#") ? "black-key" : "white-key") + // determines key class
+        " key-button" //adds some nice CSS :P
       }
       onMouseDown={() => props.synth.triggerAttack(props.note)}
       onMouseUp={() => props.synth.triggerRelease("+0.2")}
@@ -104,16 +106,9 @@ function Key(props) {
     />
   );
 }
-//does not work, think of a better way to implement this
-// i think this can be an event handler in the App class
 
-// basically the idea is to get all the keyboard keys into the each note string, so it can
-// be mapped into the key components
-const start = "F4";
-const end = "E7";
-const notes = noteRange(start, end);
-
-function strArrToStrArr(strs1, strs2) {
+// (['a','b','c'], ['1','2','3']) -> ['a 1', 'b 2', 'c 3']
+function combineStringArrays(strs1, strs2) {
   let newStr = [];
   let i = 0;
   for (let strs of strs1) {
@@ -123,32 +118,87 @@ function strArrToStrArr(strs1, strs2) {
   return newStr;
 }
 
-var notesKeys = strArrToStrArr(notes, keyboardKeys);
-console.log(notesKeys);
+// basically the idea is to get all the keyboard keys into the each note string, so it can
+// be mapped into the key components
+const start = "F4";
+const end = "E7";
+const notes = noteRange(start, end);
+//adding keyboardKeys to note array
+//this will let us id every individual key for keypresses
+const notesKeys = combineStringArrays(notes, keyboardKeys);
 
-function Piano(props) {
-  const [synth, setSynth] = useState(() => new Tone.Synth());
+// creates the synth object
+const synth = new Tone.Synth().toDestination();
 
-  //adding keyboardKeys to note array
-  //this will let us id every individual key for keypresses
+class Piano extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      start: start,
+      end: end,
+      notesKeys: notesKeys,
+    };
+    this.lowerOctave = this.lowerOctave.bind(this);
+    this.raiseOctave = this.raiseOctave.bind(this);
+  }
+  lowerOctave() {
+    //convert octave number to integer and saves it
+    const currentStartOctave = parseInt(this.state.start.charAt(1), 10);
+    const currentEndOctave = parseInt(this.state.end.charAt(1), 10);
+    //doest not lower octave past min
+    if (currentStartOctave > 1) {
+      const nextStart =
+        this.state.start.charAt(0) + (currentStartOctave - 1).toString();
+      const nextEnd =
+        this.state.end.charAt(0) + (currentEndOctave - 1).toString();
+      this.setState({
+        start: nextStart,
+        end: nextEnd,
+        notesKeys: combineStringArrays(
+          noteRange(nextStart, nextEnd),
+          keyboardKeys
+        ),
+      });
+    }
+  }
+  // similar to lowerOctave but in the reverse direction
+  raiseOctave() {
+    const currentStartOctave = parseInt(this.state.start.charAt(1), 10);
+    const currentEndOctave = parseInt(this.state.end.charAt(1), 10);
 
-  useEffect(() => {
-    synth.toDestination();
-  }, [synth]);
+    //notice we use the end octave this time
+    if (currentEndOctave < 9) {
+      const nextStart =
+        this.state.start.charAt(0) + (currentStartOctave + 1).toString();
+      const nextEnd =
+        this.state.end.charAt(0) + (currentEndOctave + 1).toString();
+      this.setState({
+        start: nextStart,
+        end: nextEnd,
+        notesKeys: combineStringArrays(
+          noteRange(nextStart, nextEnd),
+          keyboardKeys
+        ),
+      });
+    }
+  }
 
-  return (
-    <div class="piano">
-      <div class="piano-board">
-        {notesKeys.map((note) => (
-          <Key note={note} synth={synth} />
-        ))}
+  render() {
+    return (
+      <div className="piano">
+        <Octave lowerOctave={this.lowerOctave} raiseOctave={this.raiseOctave} />
+        <div className="piano-board">
+          {this.state.notesKeys.map((note) => (
+            <Key note={note} synth={synth} />
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 //creates a js obj using first array as keys and second array as values
-function arrArrToKeyValue(arr1, arr2) {
+function arraysToKeyValue(arr1, arr2) {
   let obj = new Object();
   let i = 0;
   for (let item of arr1) {
@@ -157,10 +207,8 @@ function arrArrToKeyValue(arr1, arr2) {
   }
   return obj;
 }
-let notesOfKeys = arrArrToKeyValue(keyboardKeys, notes);
-console.log(notesOfKeys);
+let notesOfKeys = arraysToKeyValue(keyboardKeys, notes);
 
-const outSynth = new Tone.Synth().toDestination();
 //this is what makes the keyboard keys play notes
 document.addEventListener(
   "keydown",
@@ -175,7 +223,7 @@ document.addEventListener(
 
     if (button) {
       button.focus();
-      outSynth.triggerAttack(notesOfKeys[key]);
+      synth.triggerAttack(notesOfKeys[key]);
     }
   },
   false
@@ -189,7 +237,7 @@ document.addEventListener(
     var button = document.getElementById(key);
     if (button) {
       button.blur();
-      outSynth.triggerRelease("+0.2");
+      synth.triggerRelease("+0.2");
     }
   },
   false

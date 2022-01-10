@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@400;500;600;700&display=swap");
+
+.octave-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  position: relative;
+  bottom: 10px;
+  width: 100px;
+  height: 15px;
+  border-radius: 5px;
+}
+
+.octave-font {
+  font-family: "Yanone Kaffeesatz";
+  font-weight: 600;
+  font-size: 11px;
+  color: white;
+}
+
+.octave-button {
+  height: 15px;
+  width: 50px;
+  background-color: inherit;
+  border-style: unset;
+}
+
+.octave-button:active {
+  background-color: #01b7a8;
+}
+
+.octave-button-left {
+  border-radius: 5px 0px 0px 5px;
+}
+.octave-button-right {
+  border-radius: 0px 5px 5px 0px;
+}
+
+.octave-span {
+  margin-left: 5px;
+  margin-right: 5px;
+}
