@@ -16,6 +16,7 @@ Interactive Virtual Keyboard. Design is based off of the Yamaha Pianica, 37-note
  
 ## Issues / Bugs
 - CSS is broken on mobile iOS devices
+- Octaves do not change with keyboard presses
 
 ## Future improvements
 
