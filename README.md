@@ -2,6 +2,9 @@
 
 Interactive Virtual Keyboard. Design is based off of the Yamaha Pianica, 37-note Melodica. Check out the [Vanilla Javascript Version](https://github.com/jmgcito/virtual-keyboard-vanilla)!
 
+## This just in!
+ - Added Octave buttons! Now you can play higher or lower notes with the press of a button!
+
 
 ## How to run
 
@@ -13,9 +16,10 @@ Interactive Virtual Keyboard. Design is based off of the Yamaha Pianica, 37-note
  
 ## Issues / Bugs
 - CSS is broken on mobile iOS devices
+- Octaves do not change with keyboard presses
 
 ## Future improvements
 
 - Change simple synth tones to melodica sound files. 
-- Add octave changer
+- Add keyboard control to octave buttons
 - Add sound changer
