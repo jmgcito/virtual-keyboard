@@ -209,6 +209,78 @@ function arraysToKeyValue(arr1, arr2) {
 }
 let notesOfKeys = arraysToKeyValue(keyboardKeys, notes);
 
+//variables for changing octaves for keyboard keys
+let currentStart = start;
+let currentEnd = end;
+function lowerOctaveForKeys() {
+  const startOctave = parseInt(currentStart.charAt(1), 10);
+  const endOctave = parseInt(currentEnd.charAt(1), 10);
+  //notice we use the end octave this time
+  if (startOctave > 1) {
+    currentStart = currentStart.charAt(0) + (startOctave - 1).toString();
+    currentEnd = currentEnd.charAt(0) + (endOctave - 1).toString();
+    notesOfKeys = arraysToKeyValue(
+      keyboardKeys,
+      noteRange(currentStart, currentEnd)
+    );
+  }
+}
+function increaseOctaveForKeys() {
+  const startOctave = parseInt(currentStart.charAt(1), 10);
+  const endOctave = parseInt(currentEnd.charAt(1), 10);
+  //notice we use the end octave this time
+  if (endOctave < 9) {
+    currentStart = currentStart.charAt(0) + (startOctave + 1).toString();
+    currentEnd = currentEnd.charAt(0) + (endOctave + 1).toString();
+    notesOfKeys = arraysToKeyValue(
+      keyboardKeys,
+      noteRange(currentStart, currentEnd)
+    );
+  }
+}
+//requires page to load before retrieving elements from Octave.js
+window.onload = function () {
+  const octaveDown = document.getElementById("octave-down");
+  const octaveUp = document.getElementById("octave-up");
+  //adding event listener so the octave buttons work also with the keyboard events
+  octaveDown.addEventListener("click", () => {
+    lowerOctaveForKeys();
+  });
+
+  octaveUp.addEventListener("click", () => {
+    increaseOctaveForKeys();
+  });
+
+  document.addEventListener("keydown", function (event) {
+    console.log(event);
+    switch (event.key) {
+      case "Left":
+      case "ArrowLeft":
+        console.log("left");
+        lowerOctaveForKeys();
+        octaveDown.focus();
+        break;
+      case "Right":
+      case "ArrowRight":
+        console.log("right");
+        increaseOctaveForKeys();
+        octaveUp.focus();
+        break;
+    }
+  });
+  document.addEventListener("keyup", function (event) {
+    switch (event.key) {
+      case "Left":
+      case "ArrowLeft":
+        octaveDown.blur();
+        break;
+      case "Right":
+      case "ArrowRight":
+        octaveUp.blur();
+    }
+  });
+};
+
 //this is what makes the keyboard keys play notes
 document.addEventListener(
   "keydown",
@@ -250,10 +322,9 @@ document.addEventListener(
   },
   false
 );
-class App extends React.Component {
-  render() {
-    return <Piano />;
-  }
+
+function App() {
+  return <Piano />;
 }
 
 export default App;

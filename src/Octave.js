@@ -5,6 +5,7 @@ function Octave(props) {
     <div className="octave-box">
       <button
         className="octave-button octave-font octave-button-left"
+        id={"octave-down"}
         onClick={props.lowerOctave}
       >
         -
@@ -13,6 +14,7 @@ function Octave(props) {
       <button
         className="octave-button octave-font octave-button-right"
         onClick={props.raiseOctave}
+        id={"octave-up"}
       >
         +
       </button>

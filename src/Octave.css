@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@400;500;600;700&display=swap");
 
+#octave-down:focus {
+  background-color: #01b7a8;
+  outline: none;
+}
+#octave-up:focus {
+  background-color: #01b7a8;
+  outline: none;
+}
+
 .octave-box {
   display: flex;
   justify-content: space-between;
