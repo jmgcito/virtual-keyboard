@@ -185,12 +185,17 @@ class Piano extends React.Component {
 
   render() {
     return (
-      <div className="piano">
-        <Octave lowerOctave={this.lowerOctave} raiseOctave={this.raiseOctave} />
-        <div className="piano-board">
-          {this.state.notesKeys.map((note) => (
-            <Key note={note} synth={synth} />
-          ))}
+      <div id="pianoChasis">
+        <div className="piano">
+          <Octave
+            lowerOctave={this.lowerOctave}
+            raiseOctave={this.raiseOctave}
+          />
+          <div className="piano-board">
+            {this.state.notesKeys.map((note) => (
+              <Key note={note} synth={synth} />
+            ))}
+          </div>
         </div>
       </div>
     );
